@@ -83,21 +83,31 @@ jan_feb_flights <- jan_feb_flights %>%
 
 ```{r}
 # is there a difference in wind speed when wind_gust is missing vs not missing?
-
-
+jan_feb_flights %>%
+  group_by(is.na(wind_gust)) %>%
+  summarise(
+    mean_wind_speed = mean(wind_speed, na.rm = TRUE)
+  )
 
 ```
 
 Describe the difference in wind speed when wind_gust is missing vs not missing:
 
 _Your answer here_
+The average wind speed is higher when wind_gust is not missing (19.15) compared to when it is missing (9.18). This suggests that wind gust data are more likely to be recorded when wind speeds are higher.
 
 ```{r eval=FALSE} 
 ## REMEMBER TO SET eval=TRUE
 
 # create a new variable, gust_present
 jan_feb_flights <- jan_feb_flights %>%
-  mutate(gust_present = _______________)
+  mutate(gust_present = !is.na(wind_gust))
+jan_feb_flights %>%
+  group_by(gust_present) %>%
+  summarise(
+    mean_delay = mean(dep_delay, na.rm = TRUE),
+    sd_delay = sd(dep_delay, na.rm = TRUE)
+  )
 ```
 
 
@@ -110,6 +120,7 @@ jan_feb_flights <- jan_feb_flights %>%
 Describe the relationship between gust_present and dep_delay you see (if any).
 
 _Your answer here_
+Flights with recorded wind gust data have a slightly higher average departure delay (11.87 minutes) compared to flights without recorded wind gust data (9.84 minutes). The standard deviations are similar (36.54 and 36.24), suggesting comparable variability in departure delays. This indicates a small association between gust data availability and departure delay, but does not prove causation.
 
 ## 2.1 Reflection
 
@@ -117,7 +128,7 @@ Was GenAI helpful as a navigator? Did it ask you questions to guide your thinkin
 Is there anything you could learn from this to be a better navigator, next time we will work in pairs?
 
 _Your answer here_
-
+Yes
 ---
 
 # 3. Bootstrap confidence intervals
