@@ -1,6 +1,6 @@
 ---
 title: "Lab 03 – Critical-Responsible Use of GenAI for Data Science"
-author: "Team Name: Yuening Yin, Isabella Lam, Serena Tam"
+author: "YIS: Yuening Yin, Isabella Lam, Serena Tam"
 date: "`r Sys.Date()`"
 output: html_document
 ---
